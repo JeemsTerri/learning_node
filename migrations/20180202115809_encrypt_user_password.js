@@ -1,4 +1,4 @@
-const { saltHashPassword } = require('../models/user')
+const { saltHashPassword } = require('../models/Users')
 
 exports.up = async function up (knex) {
   await knex.schema.table('users', t => {
