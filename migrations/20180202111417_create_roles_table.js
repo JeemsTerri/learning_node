@@ -6,9 +6,6 @@ exports.up = function(knex, Promise) {
         t.string('description')
         t.timestamps(false, true)
       })
-    .then(function() {
-        return knex.seed.run();
-    })
 };
 
 exports.down = function(knex, Promise) {
