@@ -12,8 +12,9 @@ var multer = require('multer');
 var upload = multer({dest: './uploads'});
 var flash = require('connect-flash');
 var bcrypt = require('bcryptjs');
-var knex = require('knex')('./knexfile');
-var bookshelf = require('bookshelf')(knex);
+var mysql = require('mysql');
+// var knex = require('knex')('');
+// var bookshelf = require('bookshelf')(knex);
 
 
 var routes = require('./routes/index');
