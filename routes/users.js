@@ -67,7 +67,7 @@ router.post('/register', function(req, res, next) {
   req.checkBody('name', 'Name field is required').notEmpty();
   req.checkBody('email','Email field is required').notEmpty();
   req.checkBody('email','Email is not valid').isEmail();
-  req.checkBody('username','Username field is required').notEmpty();
+  req.checkBody('username','Username field is required').notEmpty().isLowercase();
   req.checkBody('password','Password field is required').notEmpty();
   req.checkBody('password2','Passwords do not match').equals(req.body.password);
 
