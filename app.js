@@ -13,10 +13,6 @@ var upload = multer({dest: './uploads'});
 var flash = require('connect-flash');
 var bcrypt = require('bcryptjs');
 var mysql = require('mysql');
-// var knex = require('knex')('');
-// var bookshelf = require('bookshelf')(knex);
-
-
 
 var routes = require('./routes/index');
 var users = require('./routes/users');
@@ -72,10 +68,10 @@ app.use(function (req, res, next) {
   next();
 });
 
-// app.get('*', function(req, res, next){
-//   res.locals.user = req.user || null;
-//   next();
-// });
+app.get('*', function(req, res, next){
+  res.locals.user = req.user || null;
+  next();
+});
 
 app.use('/', routes);
 app.use('/users', users);
