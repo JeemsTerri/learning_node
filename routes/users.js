@@ -81,10 +81,10 @@ router.post('/register', function(req, res, next) {
   } else{
     user.register({name, email, username, password, role})
 
-    // req.flash('success', 'You are now registered and can login')
+    req.flash('success', 'You are now registered and can login')
 
     // res.location('/')
-    // res.redirect('/login')
+    res.redirect('login')
   }
 });
 
