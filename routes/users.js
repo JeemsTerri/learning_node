@@ -1,13 +1,19 @@
 var express = require('express');
 var router = express.Router();
+var passport = require('passport');
+var LocalStrategy = require('passport-local').Strategy;
+const knex = require('knex')(require('../knexfile'));
+
+const _isAuth = require('../helpers/ensureAuth');
 
 var User = require('../models/Users').User;
 
 var user = require('../models/Users');
 
+const options = {passReqToCallback: true, failureFlash: true};
 
-/* GET users listing. */
-router.get('/', function(req, res, next) {
+/* GET all users listing. */
+router.get('/', _isAuth, function(req, res, next) {
   User.fetchAll()
   .then(function(users) {
     // user.authenticate({
@@ -24,32 +30,103 @@ router.get('/', function(req, res, next) {
   // res.render('users/index', { title: 'Users' , users: allUsers});
 });
 
+// GET users with spesific roles
+// router.get('/', _isAuth, function(req, res, next) {
+//   User.
+// });
+
 router.get('/login', function(req, res, next) {
   res.render('users/login', { title: 'Login' });
 });
 
+passport.serializeUser((user, done) => {
+  done(null, user._id);
+});
+
+passport.deserializeUser((_id, done) => {
+  knex('users').where({_id}).first()
+  .then((user) => { done(null, user); })
+  .catch((err) => { done(err,null); });
+});
+
+passport.use(new LocalStrategy(options, ( req, username, password, done) => {
+  knex('users').where({ username }).first()
+  .then((usr) => {
+    if (!usr) return done(null, false, req.flash('error', 'Incorrect username.' ));
+    const { hash } = user.checkPassword({ password, salt: usr.salt })
+
+    if (hash !== usr.encrypted_password) 
+    {
+      return done(null, false, req.flash('error', 'Incorrect password.' ));
+    }
+    
+    return done(null, usr, req.flash('success', 'You have successfully login.' ));
+  })
+  .catch((err) => { return done(err); });
+}));
+
 router.post('/login', (req, res, next) => {
+
+  // Manual Login Method
   var username = req.body.username;
   var password = req.body.password;
-  user
-    .authenticate({
-      username,
-      password
-    })
-    .then(({ success }) => {
-      if (success) {
-        req.flash('success', 'You are now logged in');
-        // res.sendStatus(200);
-        res.redirect('/');
-      }
-      else res.sendStatus(401)
-    })
+
+  req.checkBody('username','Username field is required').notEmpty().isLowercase();
+  req.checkBody('password','Password field is required').notEmpty();
+
+  // Check Errors
+  var errors = req.validationErrors();
+
+  if(errors){
+    res.render('users/login', {
+      errors: errors
+    });
+  };
+
+  passport.authenticate('local', function( err, user, info) {
+    if (err) { return next(err); }
+    if (!user) { 
+      return res.redirect('/users/login') 
+    }
+    req.logIn(user, function(err) {
+      if (err) { return next(err); }
+      return res.redirect('/');
+    });
+  })(req, res, next);
+    
+    
+
+  // if(errors){
+  //   res.render('users/login', {
+  //     errors: errors
+  //   });
+  // } else {
+  //   user
+  //   .authenticate({
+  //     username,
+  //     password
+  //   })
+  //   .then(({ user, success, msg }) => {
+  //     console.log( user, success, msg)
+  //     if(!success) {
+  //       req.flash('error', msg)
+  //       res.redirect('login');
+  //     } else {
+  //       req.flash('success', 'You are now logged in');
+  //       // res.sendStatus(200);
+  //       res.redirect('/');
+  //     }
+  //     res.sendStatus(401)
+  //   })
+  // }
+
+  
 })
 
-router.get('/logout', function(){
+router.get('/logout', function(req, res){
   req.logout();
   req.flash('success', 'You are now logged out');
-  req.redirect('/users/login');
+  res.redirect('/users/login');
 })
 
 router.get('/register', function(req, res, next){
@@ -75,7 +152,7 @@ router.post('/register', function(req, res, next) {
   var errors = req.validationErrors();
 
   if(errors){
-    res.render('register', {
+    res.render('users/register', {
   		errors: errors
   	});
   } else{
