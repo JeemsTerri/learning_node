@@ -16,6 +16,7 @@ var mysql = require('mysql');
 
 var routes = require('./routes/index');
 var users = require('./routes/users');
+var jemaat = require('./routes/jemaat');
 
 var app = express();
 
