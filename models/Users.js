@@ -27,17 +27,46 @@ module.exports.User = User;
 
 module.exports =  {
     User: User,
+    // authenticate: function authenticate ({ username, password }) {
+    //     console.log(`Authenticating user ${username}`)
+    //     return knex('users').where({ username })
+    //     .then(([user]) => {
+    //         if (!user) return { success: false }
+    //         const { hash } = saltHashPassword({
+    //         password,
+    //         salt: user.salt
+    //         })
+    //     return { success: hash === user.encrypted_password }
+    //     })
+    // },
+    // authenticate: function authenticate ({ username, password }) {
+    //     console.log(`Authenticating user ${username}`)
+    //     return knex('users').where({ username })
+    //     .then(([user]) => {
+    //         if (!user) return { success: false , err : "Wrong Username"}
+    //         const { hash } = saltHashPassword({
+    //             password,
+    //             salt: user.salt
+    //         })
+    //         if (!hash) return {success: false, err : "Wrong Password"}
+    //         return { success: hash === user.encrypted_password }
+    //     })
+    // },
+
     authenticate: function authenticate ({ username, password }) {
         console.log(`Authenticating user ${username}`)
         return knex('users').where({ username })
         .then(([user]) => {
-            if (!user) return { success: false }
+            if (!user) return { user, success: false, msg:'Check your username & password' }
             const { hash } = saltHashPassword({
-            password,
-            salt: user.salt
+                password,
+                salt: user.salt
             })
-        return { success: hash === user.encrypted_password }
-        })
+            return { user, success: true, msg:'Success'}
+        }).catch((err) => { 
+            console.log(err);
+            return err 
+        });
     },
     register: function register ({ name, email, username, password, role }) {
         console.log(`Add user ${username}`)
@@ -51,5 +80,15 @@ module.exports =  {
             username,
             role_id: role
         }).save()
+    },
+    checkPassword: function checkPassword ({
+        password,
+        salt = randomString()
+    }) {
+        const hash = crypto.createHmac('sha512', salt).update(password)
+        return {
+            salt,
+            hash: hash.digest('hex')
+        }
     }
 };
