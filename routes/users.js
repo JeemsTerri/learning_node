@@ -79,7 +79,7 @@ router.post('/login', (req, res, next) => {
     if (err) { return req.flash('error', info.message), next(err); }
     if (!user) { 
       
-      return res.render('users/login', { message: info.message })
+      return res.render('login', { message: info.message })
     }
     req.logIn(user, function(err) {
       if (err) { return req.flash('error', info), next(err); }
