@@ -9,37 +9,29 @@ html(lang='en')
     title= title
     link(rel='stylesheet', href='/stylesheets/bootstrap.css')
     link(rel='stylesheet', href='/stylesheets/style.css')
+    link(rel='stylesheet', href='/stylesheets/dashboard.css')
     //- link(rel='icon', href='../../../../favicon.ico')
 
   body
     
-    nav.navbar.navbar-expand-md.navbar-dark.fixed-top.bg-dark
-      a.navbar-brand(href='/') Mosaic
+    nav.navbar.navbar-dark.sticky-top.bg-dark.flex-md-nowrap.p-0
+      a.navbar-brand.col-sm-3.col-md-2.mr-0(href='/') Mosaic
 
-      button.navbar-toggler(type='button', data-toggle='collapse', data-target='#navbarCollapse', aria-controls='navbarCollapse', aria-expanded='false', aria-label='Toggle navigation')
-        span.navbar-toggler-icon
+      if user
+        input.form-control.form-control-dark.w-100(type='text' placeholder='Search' aria-label='Search')
+      
+      if !user
+        ul.navbar-nav.px-3
+          li.nav-item(class=(title == 'Login' ? 'active' : ''))
+            a.nav-link(href='/users/login') Login
 
-      #navbarCollapse.collapse.navbar-collapse
-        ul.navbar-nav.mr-auto
-          li.nav-item(class=(title == 'Dashboard' ? 'active' : ''))
-            a.nav-link(href='/')
-              | Home 
-              span.sr-only (current)
-          li.nav-item(class=(title == 'Users' ? 'active' : ''))
-            a.nav-link(href='/users/') Users
-        
-        if !user
-          ul.navbar-nav.ml-auto
-            li.nav-item(class=(title == 'Login' ? 'active' : ''))
-              a.nav-link(href='/users/login') Login
-
-        if user
-          ul.navbar-nav.ml-auto
-            li.nav-item
-              a.nav-link(href='/users/logout') Logout
+      if user
+        ul.navbar-nav.px-3
+          li.nav-item
+            a.nav-link(href='/users/logout') Logout
 
 
-    .container
+    .container-fluid
       != messages()
       block content
 

@@ -1,0 +1,32 @@
+doctype html
+html(lang='en')
+  head
+    meta(charset='utf-8')
+    meta(name='viewport', content='width=device-width, initial-scale=1, shrink-to-fit=no')
+    meta(name='description', content='')
+    meta(name='author', content='')
+
+    title= title
+    link(rel='stylesheet', href='/stylesheets/bootstrap.css')
+    link(rel='stylesheet', href='/stylesheets/login.css')
+    //- link(rel='icon', href='../../../../favicon.ico')
+
+  body.text-center
+    form.form-signin(method='post', action='/users/login')
+      <img class="mb-4" src="/images/man-icon.svg" alt="" width="128" height="128">
+      h1.h3.mb-3.font-weigh-normal Please log in
+      label.sr-only(for='username') Username
+      input.form-control(name='username', type='text', placeholder='Username',required, autofocus)
+      label.sr-only(for='username') Password
+      input.form-control(name='password', type='password', placeholder='Password', required)
+      
+      button.btn.btn-lg.btn-primary.btn-block(type='submit', name='submit') Login
+
+      != messages()
+
+      div.copyright.text-center
+        p.mt-5.mb-3.text-muted.text-center &copy; 2017-2018
+
+
+script(src='https://code.jquery.com/jquery-3.2.1.slim.min.js', integrity='sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN', crossorigin='anonymous')
+script(src='/javascripts/bootstrap.js')

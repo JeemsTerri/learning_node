@@ -14,20 +14,12 @@ const options = {passReqToCallback: true, failureFlash: true};
 
 /* GET all users listing. */
 router.get('/', _isAuth, function(req, res, next) {
+
   User.fetchAll()
   .then(function(users) {
-    // user.authenticate({
-    //   username: 'jeemsterry',
-    //   password: '111111'
-    // });
-    res.json({ users});
+    res.render('users/index', { title: 'Users' , users: users});
   });
-  // users.fetchAll()
-  // .then(function(users) {
-  //   // res.render('users/index', { title: 'Users' , users: users});
-  //   res.json({ users });
-  // });
-  // res.render('users/index', { title: 'Users' , users: allUsers});
+
 });
 
 // GET users with spesific roles
@@ -36,7 +28,7 @@ router.get('/', _isAuth, function(req, res, next) {
 // });
 
 router.get('/login', function(req, res, next) {
-  res.render('users/login', { title: 'Login' });
+  res.render('login', { title: 'Login' });
 });
 
 passport.serializeUser((user, done) => {
@@ -52,15 +44,15 @@ passport.deserializeUser((_id, done) => {
 passport.use(new LocalStrategy(options, ( req, username, password, done) => {
   knex('users').where({ username }).first()
   .then((usr) => {
-    if (!usr) return done(null, false, req.flash('error', 'Incorrect username.' ));
+    if (!usr) return done(null, false, {message: 'Incorrect username.'});
     const { hash } = user.checkPassword({ password, salt: usr.salt })
 
     if (hash !== usr.encrypted_password) 
     {
-      return done(null, false, req.flash('error', 'Incorrect password.' ));
+      return done(null, false, {message: 'Incorrect password.'});
     }
     
-    return done(null, usr, req.flash('success', 'You have successfully login.' ));
+    return done(null, usr, { message: 'You have successfully login.' });
   })
   .catch((err) => { return done(err); });
 }));
@@ -83,14 +75,15 @@ router.post('/login', (req, res, next) => {
     });
   };
 
-  passport.authenticate('local', function( err, user, info) {
-    if (err) { return next(err); }
+  passport.authenticate('local',{failureFlash: true}, function( err, user, info) {
+    if (err) { return req.flash('error', info.message), next(err); }
     if (!user) { 
-      return res.redirect('/users/login') 
+      
+      return res.render('users/login', { message: info.message })
     }
     req.logIn(user, function(err) {
-      if (err) { return next(err); }
-      return res.redirect('/');
+      if (err) { return req.flash('error', info), next(err); }
+      return req.flash('success', info.message), res.redirect('/');
     });
   })(req, res, next);
     

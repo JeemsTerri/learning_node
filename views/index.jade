@@ -1,5 +1,6 @@
-extends layout
+extends dashboard_layout
 
 block content
-  h1= title
-  p Welcome to #{title}
+  .d-flex.justify-content-between.flex-wrap.flex-md-nowrap.align-items-center.pb-2.mb-3.border-bottom
+      h1.h2 Welcome 
+    p Hi there #{user.name}!
