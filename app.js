@@ -17,6 +17,9 @@ var mysql = require('mysql');
 var routes = require('./routes/index');
 var users = require('./routes/users');
 var jemaat = require('./routes/jemaat');
+var API = require('./routes/api');
+var ibadah = require('./routes/ibadah');
+var setting = require('./routes/setting');
 
 var app = express();
 
@@ -77,6 +80,9 @@ app.get('*', function(req, res, next){
 app.use('/', routes);
 app.use('/users', users);
 app.use('/jemaat', jemaat);
+app.use('/setting', setting);
+app.use('/api', API);
+app.use('/ibadah', ibadah);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
