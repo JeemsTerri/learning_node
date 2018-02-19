@@ -1,10 +1,12 @@
 
 exports.up = function(knex, Promise) {
     return knex.schema.createTable('appconfig', function (t) {
-        t.integer('nama_gereja').notNullable().primary()
-        t.integer('alamat_gereja').unsigned().notNullable().references('_id').inTable('jemaat')
-        t.integer('pimpinan').notNullable()
-        t.integer('logo').notNullable()
+        t.string('nama_gereja').notNullable().primary()
+        t.string('alamat_gereja').notNullable()
+        t.string('kota').notNullable()
+        t.string('provinsi').notNullable()
+        t.string('pimpinan').notNullable()
+        t.string('logo').notNullable()
         t.timestamps(false, true)
     })
 };
