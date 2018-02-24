@@ -32,11 +32,11 @@ router.get('/login', function(req, res, next) {
 });
 
 passport.serializeUser((user, done) => {
-  done(null, user._id);
+  done(null, user.id);
 });
 
-passport.deserializeUser((_id, done) => {
-  knex('users').where({_id}).first()
+passport.deserializeUser((id, done) => {
+  knex('users').where({id}).first()
   .then((user) => { done(null, user); })
   .catch((err) => { done(err,null); });
 });
@@ -76,10 +76,10 @@ router.post('/login', (req, res, next) => {
   };
 
   passport.authenticate('local',{failureFlash: true}, function( err, user, info) {
-    if (err) { return req.flash('error', info.message), next(err); }
+    if (err) { return req.flash('error', info), next(err); }
     if (!user) { 
       
-      return res.render('login', { message: info.message })
+      return res.render('login', { 'error': info })
     }
     req.logIn(user, function(err) {
       if (err) { return req.flash('error', info), next(err); }
