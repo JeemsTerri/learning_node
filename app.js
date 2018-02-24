@@ -17,9 +17,11 @@ var mysql = require('mysql');
 var routes = require('./routes/index');
 var users = require('./routes/users');
 var jemaat = require('./routes/jemaat');
+var fresh = require('./routes/fresh');
 var API = require('./routes/api');
 var ibadah = require('./routes/ibadah');
 var setting = require('./routes/setting');
+var absensi_ibadah_fresh = require('./routes/absensi_ibadah_fresh');
 
 var app = express();
 
@@ -44,6 +46,9 @@ app.use(session({
 app.use(passport.initialize());
 app.use(passport.session());
 
+// Momentjs
+app.locals.moment = require('moment');
+
 // Validator
 app.use(expressValidator({
   errorFormatter: function(param, msg, value) {
@@ -62,7 +67,6 @@ app.use(expressValidator({
   }
 }));
 
-
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
@@ -80,9 +84,11 @@ app.get('*', function(req, res, next){
 app.use('/', routes);
 app.use('/users', users);
 app.use('/jemaat', jemaat);
+app.use('/fresh', fresh);
 app.use('/setting', setting);
 app.use('/api', API);
 app.use('/ibadah', ibadah);
+app.use('/absensi_fresh', absensi_ibadah_fresh);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
