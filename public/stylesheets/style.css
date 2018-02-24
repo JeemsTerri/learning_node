@@ -1,11 +1,25 @@
 body {
   /* padding-top: 4.5rem; */
-  font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+  font: 14px 'Ubuntu', Helvetica, Arial, sans-serif;
 }
 
-a {
+/* a {
   color: #00B7FF;
+} */
+
+h1, h2, h3, h4, h5, h6 {
+	font-family: 'Ubuntu', Helvetica, Arial, sans-serif;
 }
+
+p, a {
+	font-family: 'Vollkorn', Georgia, Times, serif;
+}
+
+p{
+  font-size: 16px;
+	line-height: 25px;
+}
+
 
 ul.success li{
   padding: 15px;
@@ -27,4 +41,11 @@ ul.error li{
   background-color: #f2dede;
   border-color: #ebccd1;
   list-style: none;
+}
+
+
+input[type=number]::-webkit-inner-spin-button, 
+input[type=number]::-webkit-outer-spin-button { 
+  -webkit-appearance: none; 
+  margin: 0; 
 }
