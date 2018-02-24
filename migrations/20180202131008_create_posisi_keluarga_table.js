@@ -1,7 +1,7 @@
 
 exports.up = function(knex, Promise) {
     return knex.schema.createTable('posisi_keluarga', function (t) {
-        t.increments('_id').primary()
+        t.increments('id').primary()
         t.string('posisi').notNullable()
         t.timestamps(false, true)
     })

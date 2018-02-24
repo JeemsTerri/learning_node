@@ -13,7 +13,7 @@ exports.up = async function up (knex) {
   function convertPassword (user) {
     const { salt, hash } = saltHashPassword(user.password)
     return knex('users')
-      .where({ _id: user.id })
+      .where({ id: user.id })
       .update({
         salt,
         encrypted_password: hash
