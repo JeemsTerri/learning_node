@@ -13,6 +13,7 @@ exports.seed = function(knex, Promise) {
     return knex('users').del()
       .then(function () {
         // Inserts seed entries
+        console.log('seeding Admin')
         return User.register(adminUser);
         // return knex('users').insert([
         //   {_id: 1, role_name: 'Administrator', description: 'Administrator role'},
