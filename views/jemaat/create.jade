@@ -1,0 +1,91 @@
+extends ../dashboard_layout
+
+block content
+  
+  .d-flex.justify-content-between.flex-wrap.flex-md-nowrap.align-items-center.pb-2.mb-3.border-bottom
+    h1.h2= title
+
+  .card
+    h5.card-header Data Jemaat
+    .card-body
+      form(action="/jemaat/create" method="post")
+
+        .form-row
+          .form-group.col-md-6
+            label(for='firstname') Nama Depan
+            input.form-control(name='firstname', type='text', placeholder="Nama Depan", required, autofocus)
+          .form-group.col-md-6
+            label(for='lastname') Nama Belakang
+            input.form-control(name="lastname", type='text', placeholder="Nama Belakang", required)
+
+        .form-group
+          label Tempat & Tanggal Lahir
+          .input-group
+            .input-group-prepend
+              span.input-group-text Tempat
+            input.form-control(name='pob', type='text', placeholder="Tempat" required)
+            .input-group-prepend
+              span.input-group-text Tahun
+            input.form-control(name='tahun', type="text" aria-label="Tahun", placeholder="1993", required)
+            .input-group-prepend
+              span.input-group-text Bulan
+            input.form-control(name='bulan', type="text" aria-label="Bulan", placeholder="7", required)
+            .input-group-prepend
+              span.input-group-text Tanggal
+            input.form-control(name='tanggal', type="text" aria-label="Tanggal", placeholder="25", required)
+        .form-group
+          label(for='gender') Jenis Kelamin
+          select.custom-select(name="gender")
+            option(selected) -- Pilih --
+            option(value="L") Laki-Laki
+            option(value="P") Perempuan
+
+        .form-group
+          label(for='address') Alamat Jemaat
+          input.form-control(name="address", type='text', placeholder="Alamat Jemaat", required)
+
+        .form-row
+          .form-group.col-md-4
+            label(for='city') Kota
+            input.form-control(name="city", type='text', placeholder="Kota", required)
+          .form-group.col-md-4
+            label(for='provinsi') Provinsi
+            input.form-control(name="provinsi", type='text', placeholder="Provinsi", required)
+          .form-group.col-md-1
+            label(for='rt') RT
+            input.form-control(name="rt", type='text', placeholder="RT", required)
+          .form-group.col-md-1
+            label(for='rw') RW
+            input.form-control(name="rw", type='text', placeholder="RW", required)
+          .form-group.col-md-2
+            label(for='kodepos') Kode Pos
+            input.form-control(name="kodepos", type='text', placeholder="Kode Pos", required)
+
+        .form-group
+          label(for='phone') No Handphone
+          input.form-control(name="phone", type='number', placeholder="No Handphone", required)
+
+        .form-group
+          label(for='gol_darah') Gol. Darah
+          select.custom-select(name="gol_darah")
+            option(selected) -- Pilih --
+            option(value="A") A
+            option(value="B") B
+            option(value="O") O   
+            option(value="AB") AB
+     
+        .form-group
+          label(for='pelayanan') Pelayanan
+          input.form-control(name="pelayanan", type='text', placeholder="No Handphone")
+
+        .form-group
+          label(for='fresh') Fresh
+          select.custom-select(name="fresh")
+            option(selected) -- Pilih --
+            each item, i in fresh
+              option(value="#{item.id}") #{item.nama}
+          
+
+        .text-center
+          button.btn.btn-md.btn-primary(type='submit', name='submit', width="200") Simpan
+          a.btn.btn-md.btn-danger(href="/jemaat", id="cancel" name='cancel', width="200") Kembali

@@ -1,0 +1,50 @@
+extends ../dashboard_layout
+
+block content
+  
+  .d-flex.justify-content-between.flex-wrap.flex-md-nowrap.align-items-center.pb-2.mb-3.border-bottom
+    h1.h2 Data Jemaat
+    .btn-toolbar.mb-2.mb-md-0
+      .btn-group.mr-2
+        a.btn.btn-md.btn-outline-primary(href="/jemaat/create") Tambahkan Jemaat
+
+  .card
+    h5.card-header Tabel Jemaat
+    .card-body
+      .table-responsive
+        table.table.table-hover.table-bordered
+          thead
+            tr
+              th No.
+              th Nama.
+              th Tempat Lahir.
+              th Tanggal Lahir.
+              th Jenis Kelamin.
+              th Alamat.
+              th No Telepon.
+              th Fresh.
+              th Action.
+
+          tbody
+            - each person, i in jemaat
+              tr
+                td( scope="row") #{i + 1}
+                td #{person.firstname + ' ' + person.lastname}
+                td #{person.pob}
+                td #{moment(person.dob).format('DD-MM-YYYY')}
+                if (person.gender === 'P')
+                  td Perempuan
+                else
+                  td Laki-Laki
+                td #{person.address}
+                td #{person.phone}
+                if (person.fresh != null)
+                  td #{person.fresh.nama}
+                else
+                  td -
+                td
+                  a.btn.btn-sm.btn-outline-success(href="/jemaat/edit/#{person.id}") Ubah 
+                  | 
+                  a.btn.btn-sm.btn-outline-danger(href="/jemaat/delete/#{person.id}") Hapus
+                  
+              

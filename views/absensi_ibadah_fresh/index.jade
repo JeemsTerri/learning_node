@@ -1,0 +1,42 @@
+extends ../dashboard_layout
+
+block content
+  
+  .d-flex.justify-content-between.flex-wrap.flex-md-nowrap.align-items-center.pb-2.mb-3.border-bottom
+    h1.h2 Absensi Ibadah Fresh
+    .btn-toolbar.mb-2.mb-md-0
+      .btn-group.mr-2
+        a.btn.btn-md.btn-outline-primary(href="/absensi_fresh") Tambahkan Ibadah
+
+  .card
+    h5.card-header Tabel Ibadah
+    .card-body
+      .table-responsive
+        table.table.table-hover.table-bordered
+          thead
+            tr
+              th No.
+              th Nama Fresh
+              th Tanggal Ibadah
+              th Jam Ibadah
+              th Alamat
+              th Tema Ibadah
+              th Pengkhotbah
+              th Action.
+        //-   tbody
+            //- - each ibadah, i in dataIbadah
+            //-   tr
+            //-     td( scope="row") #{i + 1}
+            //-     td #{ibadah.fresh.nama}
+            //-     - date = moment(ibadah.tanggal).locale('id').format('YYYY/MM/DD')
+            //-     td #{moment(ibadah.tanggal).locale('id').format('dddd, DD-MM-YYYY')}
+            //-     td #{moment(date +' '+ ibadah.jam).format('HH:mm ')}
+            //-     td #{ibadah.alamat}
+            //-     td #{ibadah.tema}
+            //-     td #{ibadah.pengkhotbah}
+            //-     td
+            //-       a.btn.btn-sm.btn-outline-success(href="/ibadah/edit/#{ibadah.id}") Ubah 
+            //-       | 
+            //-       a.btn.btn-sm.btn-outline-danger(href="/ibadah/delete/#{ibadah.id}") Hapus
+                  
+              

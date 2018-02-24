@@ -1,0 +1,101 @@
+extends ../dashboard_layout
+
+block content
+  
+  .d-flex.justify-content-between.flex-wrap.flex-md-nowrap.align-items-center.pb-2.mb-3.border-bottom
+    h1.h2= title
+
+  .card
+    h5.card-header Data Jemaat
+    .card-body
+      form(action="/jemaat/edit/#{jemaat.id}" method="post")
+
+        .form-row
+          .form-group.col-md-6
+            label(for='firstname') Nama Depan
+            input.form-control(name='firstname', type='text', placeholder="Nama Depan", required, autofocus, value="#{jemaat.firstname}")
+          .form-group.col-md-6
+            label(for='lastname') Nama Belakang
+            input.form-control(name="lastname", type='text', placeholder="Nama Belakang", required, value="#{jemaat.lastname}")
+
+        .form-group
+          label Tempat & Tanggal Lahir
+          .input-group
+            .input-group-prepend
+              span.input-group-text Tempat
+            input.form-control(name='pob', type='text', placeholder="Tempat" required, value="#{jemaat.pob}")
+            .input-group-prepend
+              span.input-group-text Tahun
+            input.form-control(name='tahun', type="text" aria-label="Tahun", placeholder="1993", required, value="#{moment(jemaat.dob).format('YYYY')}")
+            .input-group-prepend
+              span.input-group-text Bulan
+            input.form-control(name='bulan', type="text" aria-label="Bulan", placeholder="7", required, value="#{moment(jemaat.dob).format('MM')}")
+            .input-group-prepend
+              span.input-group-text Tanggal
+            input.form-control(name='tanggal', type="text" aria-label="Tanggal", placeholder="25", required, value="#{moment(jemaat.dob).format('DD')}")
+        .form-group
+          label(for='gender') Jenis Kelamin
+          select.custom-select(name="gender")
+            option -- Pilih --
+            - if (jemaat.gender === "L")
+              option(value="L" selected) Laki-Laki
+              option(value="P") Perempuan
+            - else
+              option(value="L") Laki-Laki
+              option(value="P" selected) Perempuan
+
+        .form-group
+          label(for='address') Alamat Jemaat
+          input.form-control(name="address", type='text', placeholder="Alamat Jemaat", required, value="#{jemaat.address}")
+
+        .form-row
+          .form-group.col-md-4
+            label(for='city') Kota
+            input.form-control(name="city", type='text', placeholder="Kota", required, value="#{jemaat.city}")
+          .form-group.col-md-4
+            label(for='provinsi') Provinsi
+            input.form-control(name="provinsi", type='text', placeholder="Provinsi", required, value="#{jemaat.provinsi}")
+          .form-group.col-md-1
+            label(for='rt') RT
+            input.form-control(name="rt", type='text', placeholder="RT", required, value="#{jemaat.rt}")
+          .form-group.col-md-1
+            label(for='rw') RW
+            input.form-control(name="rw", type='text', placeholder="RW", required, value="#{jemaat.rw}")
+          .form-group.col-md-2
+            label(for='kodepos') Kode Pos
+            input.form-control(name="kodepos", type='text', placeholder="Kode Pos", required, value="#{jemaat.kodepos}")
+
+        .form-group
+          label(for='phone') No Handphone
+          input.form-control(name="phone", type='number', placeholder="No Handphone", required, value="#{jemaat.phone}")
+
+        .form-group
+          label(for='gol_darah') Gol. Darah
+          select.custom-select(name="gol_darah")
+            option -- Pilih --
+            - data_gol_darah = ["A", "B", "AB", "O"]
+            each gol_darah in data_gol_darah
+              if(jemaat.gol_darah === gol_darah)
+                option(value="#{gol_darah}" selected) #{gol_darah}
+              else 
+                option(value="#{gol_darah}") #{gol_darah}
+     
+        .form-group
+          label(for='pelayanan') Pelayanan
+          input.form-control(name="pelayanan", type='text', placeholder="No Handphone", value="#{jemaat.pelayanan}")
+
+        .form-group
+          label(for='fresh') Fresh
+          select.custom-select(name="fresh")
+            option(selected) -- Pilih --
+            each item in fresh
+              //- option #{console.log(item)}
+              if(item.id === jemaat.fresh_id)
+                option(value="#{item.id}" selected) #{item.nama}
+              else
+                option(value="#{item.id}") #{item.nama}
+          
+
+        .text-center
+          button.btn.btn-md.btn-primary(type='submit', name='submit', width="200") Simpan
+          a.btn.btn-md.btn-danger(href="/jemaat", id="cancel" name='cancel', width="200") Kembali

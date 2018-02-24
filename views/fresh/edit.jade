@@ -1,0 +1,28 @@
+extends ../dashboard_layout
+
+block content
+  
+  .d-flex.justify-content-between.flex-wrap.flex-md-nowrap.align-items-center.pb-2.mb-3.border-bottom
+    h1.h2= title
+
+  .card
+    h5.card-header Ubah Data Fresh
+    .card-body
+      form(action="/fresh/edit/#{fresh.id}" method="post")
+        .form-group
+          label(for='nama') Nama Fresh
+          input.form-control(name='nama', type='text', placeholder="Nama Fresh", required, autofocus, value="#{fresh.nama}")
+        .form-row
+          .form-group.col-md-6
+            label(for='pimpinan') Pimpinan Fresh
+            input.form-control(name="pimpinan", type='text', placeholder="Pimpinan Fresh", value="#{fresh.pimpinan}")
+          .form-group.col-md-6
+            label(for='wilayah') Wilayah Fresh
+            input.form-control(name="wilayah", type='text', placeholder="Wilayah Fresh", value="#{fresh.wilayah}")
+        .form-group
+          label(for='description') Keterangan Fresh
+          input.form-control(name="description", type='text', placeholder="Keterangan Fresh", value="#{fresh.description}")
+
+        .text-center
+          button.btn.btn-md.btn-primary(type='submit', name='submit', width="200") Simpan
+          a.btn.btn-md.btn-danger(href="/fresh", id="cancel" name='cancel', width="200") Kembali

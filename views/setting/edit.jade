@@ -1,0 +1,36 @@
+extends ../dashboard_layout
+
+block content
+  
+  .d-flex.justify-content-between.flex-wrap.flex-md-nowrap.align-items-center.pb-2.mb-3.border-bottom
+    h1.h2 Setting
+
+  .card
+    h5.card-header Data Gereja
+    .card-body
+      form(action="/setting/edit" method="post" enctype="multipart/form-data")
+        .form-group
+          label(for='nama_gereja') Nama Gereja
+          input.form-control(name='nama_gereja', type='text', value= "#{gereja.nama_gereja}", required, autofocus)
+        .form-group
+          label(for='alamat_gereja') Alamat Gereja
+          textarea.form-control(name="alamat_gereja", cols="12", rows="5", required) #{gereja.alamat_gereja}
+        .form-row
+          .form-group.col
+            label(for='kota') Kota
+            input.form-control(name='kota', type='text', value= "#{gereja.kota}", required)
+          .form-group.col
+            label(for='provinsi') Provinsi
+            input.form-control(name='provinsi', type='text', value= "#{gereja.provinsi}", required)
+        .form-group
+          label(for='pimpinan') Pimpinan Gereja
+          input.form-control(name='pimpinan', type='text', value= "#{gereja.pimpinan}", required)
+        .form-row
+          .form-group.col-sm-1
+            img.img-thumbnail.rounded(src="/images/#{gereja.logo}.svg" alt="#{gereja.logo}" width="120px")
+          .form-group.col
+            label(for='logo') Logo Gereja
+            input.form-control(name='logo', type='file')
+        
+        .text-center
+          button.btn.btn-md.btn-primary(type='submit', name='submit', width="200") Simpan

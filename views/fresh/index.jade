@@ -1,0 +1,52 @@
+extends ../dashboard_layout
+
+block content
+  
+  .d-flex.justify-content-between.flex-wrap.flex-md-nowrap.align-items-center.pb-2.mb-3.border-bottom
+    h1.h2 Data Fresh
+    .btn-toolbar.mb-2.mb-md-0
+      .btn-group.mr-2
+        a.btn.btn-md.btn-outline-primary(href="/fresh/create") Tambahkan Fresh
+
+  .card
+    h5.card-header Tabel Fresh
+    .card-body
+      .table-responsive
+        table.table.table-hover.table-bordered
+          thead
+            tr
+              th No.
+              th Nama Fresh.
+              th Pimpinan Fresh.
+              th Jumlah Anggota.
+              th Wilayah.
+              th Action.
+          tbody
+            - each fresh, i in freshs
+              tr
+                td( scope="row") #{i + 1}
+                td #{fresh.nama}
+                - if(fresh.pimpinan != null)
+                    td #{fresh.pimpinan}
+                - else  
+                    td -
+                - if(fresh.jemaats != null)
+                    td #{Object.keys(fresh.jemaats).length}
+                - else 
+                    td -
+                if (fresh.wilayah !=null)
+                  td #{fresh.wilayah}
+                else
+                  td -
+                //- td #{fresh.address}
+                //- td #{fresh.phone}
+                //- if (fresh.fresh != null)
+                //-   td #{fresh.fresh.nama}
+                //- else
+                //-   td -
+                td
+                  a.btn.btn-sm.btn-outline-success(href="/fresh/edit/#{fresh.id}") Ubah 
+                  | 
+                  a.btn.btn-sm.btn-outline-danger(href="/fresh/delete/#{fresh.id}") Hapus
+                  
+              
