@@ -4,10 +4,10 @@ exports.up = function(knex, Promise) {
         t.increments('id').primary()
         t.string('role_name').notNullable().unique()
         t.string('description')
-        t.timestamp('created_at').notNullable().defaultTo(knex.raw('now()'))
-        t.timestamp('updated_at').notNullable().defaultTo(knex.raw('now()'))
+        // t.timestamp('created_at').notNullable().defaultTo(knex.raw('now()'))
+        // t.timestamp('updated_at').notNullable().defaultTo(knex.raw('now()'))
         // Error
-        // t.timestamps()
+        t.timestamps()
       })
 };
 
