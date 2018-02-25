@@ -4,10 +4,10 @@ exports.up = function(knex, Promise) {
         t.increments('id').primary()
         t.string('nama_keluarga').notNullable()
         t.date('tanggal_pernikahan').notNullable()
-        t.timestamp('created_at').notNullable().defaultTo(knex.raw('now()'))
-        t.timestamp('updated_at').notNullable().defaultTo(knex.raw('now()'))
+        // t.timestamp('created_at').notNullable().defaultTo(knex.raw('now()'))
+        // t.timestamp('updated_at').notNullable().defaultTo(knex.raw('now()'))
         // Error
-        // t.timestamps()
+        t.timestamps()
     })
 };
 

@@ -6,10 +6,10 @@ exports.up = function(knex, Promise) {
         t.string('status').notNullable()
         t.string('alasan')
         t.string('description')
-        t.timestamp('created_at').notNullable().defaultTo(knex.raw('now()'))
-        t.timestamp('updated_at').notNullable().defaultTo(knex.raw('now()'))
+        // t.timestamp('created_at').notNullable().defaultTo(knex.raw('now()'))
+        // t.timestamp('updated_at').notNullable().defaultTo(knex.raw('now()'))
         // Error
-        // t.timestamps()
+        t.timestamps()
     })
 };
 
