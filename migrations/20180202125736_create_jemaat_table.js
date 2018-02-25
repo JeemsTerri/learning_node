@@ -13,7 +13,7 @@ exports.up = function(knex, Promise) {
         t.string('rw').notNullable()
         t.string('kodepos').notNullable()
         t.string('gender').notNullable()
-        t.string('phone').unique()
+        t.string('phone')
         t.string('gol_darah').notNullable()
         t.string('pelayanan')
         t.integer('fresh_id').unsigned().references('id').inTable('fresh')
