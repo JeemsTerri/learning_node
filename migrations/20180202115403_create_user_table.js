@@ -5,7 +5,7 @@ exports.up = function(knex, Promise) {
         t.string('name').notNullable()
         t.string('username').notNullable()
         t.string('password').notNullable()
-        t.string('email').notNullable().unique()
+        t.string('email').notNullable()
         t.string('reset_password')
         t.integer('role_id').unsigned().notNullable().references('id').inTable('roles')
         // t.timestamp('created_at').notNullable().defaultTo(knex.raw('now()'))
