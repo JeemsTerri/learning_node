@@ -1,3 +1,4 @@
+"use strict";
 const { saltHashPassword } = require('../models/Users')
 
 exports.up = async function up (knex) {

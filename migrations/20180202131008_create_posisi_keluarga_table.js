@@ -1,4 +1,4 @@
-
+"use strict";
 exports.up = function(knex, Promise) {
     return knex.schema.createTable('posisi_keluarga', function (t) {
         t.increments('id').primary()

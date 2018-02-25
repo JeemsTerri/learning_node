@@ -1,4 +1,4 @@
-
+"use strict";
 exports.up = function(knex, Promise) {
     return knex.schema.createTable('keluarga_jemaat', function (t) {
         t.integer('keluarga_id').unsigned().notNullable().references('id').inTable('keluarga')

@@ -1,4 +1,4 @@
-
+"use strict";
 exports.up = function(knex, Promise) {
     return knex.schema.createTable('appconfig', function (t) {
         t.string('nama_gereja').notNullable().primary()
