@@ -8,7 +8,10 @@ exports.up = function(knex, Promise) {
         t.string('email').notNullable().unique()
         t.string('reset_password')
         t.integer('role_id').unsigned().notNullable().references('id').inTable('roles')
-        t.timestamps(false, true)
+        t.timestamp('created_at').notNullable().defaultTo(knex.raw('now()'))
+        t.timestamp('updated_at').notNullable().defaultTo(knex.raw('now()'))
+        // Error
+        // t.timestamps()
     })
 };
 

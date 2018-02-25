@@ -19,7 +19,10 @@ exports.up = function(knex, Promise) {
         t.integer('fresh_id').unsigned().references('id').inTable('fresh')
         t.integer('user_id').unsigned().references('id').inTable('users')
         t.integer('role_id').unsigned().references('id').inTable('roles')
-        t.timestamps(false, true)
+        t.timestamp('created_at').notNullable().defaultTo(knex.raw('now()'))
+        t.timestamp('updated_at').notNullable().defaultTo(knex.raw('now()'))
+        // Error
+        // t.timestamps()
     })
 };
 

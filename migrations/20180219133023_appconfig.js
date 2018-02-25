@@ -7,7 +7,10 @@ exports.up = function(knex, Promise) {
         t.string('provinsi').notNullable()
         t.string('pimpinan').notNullable()
         t.string('logo').notNullable()
-        t.timestamps(false, true)
+        t.timestamp('created_at').notNullable().defaultTo(knex.raw('now()'))
+        t.timestamp('updated_at').notNullable().defaultTo(knex.raw('now()'))
+        // Error
+        // t.timestamps()
     })
 };
 

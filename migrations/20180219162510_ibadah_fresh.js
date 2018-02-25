@@ -9,7 +9,10 @@ exports.up = function(knex, Promise) {
         t.string('tema')
         t.string('pengkhotbah')
         t.string('description')
-        t.timestamps(false, true)
+        t.timestamp('created_at').notNullable().defaultTo(knex.raw('now()'))
+        t.timestamp('updated_at').notNullable().defaultTo(knex.raw('now()'))
+        // Error
+        // t.timestamps()
     })
 };
 
