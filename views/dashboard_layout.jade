@@ -32,8 +32,8 @@ html(lang='en')
             a.nav-link(href='/users/logout') Logout
 
     .container-fluid
-      .row
-        nav.col-md-2.d-none.d-md-block.bg-light.sidebar
+      .row.d-flex
+        nav.col-md-2.d-none.d-md-block.bg-light.sidebar.collapse.show
           .sidebar-sticky
             ul.nav.flex-column
               li.nav-item
@@ -68,7 +68,7 @@ html(lang='en')
                 a.d-flex.align-items-center.text-muted
             ul.nav.flex-column.mb-2
               li.nav-item
-                a.nav-link(href="absensi_fresh")
+                a.nav-link(href="/absensi_fresh")
                   span(data-feather="edit")
                   | Absensi Ibadah Fresh
 
