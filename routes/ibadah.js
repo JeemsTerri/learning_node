@@ -27,11 +27,14 @@ router.get('/create', function(req, res, next) {
 router.post('/create', function(req, res, next) {
     var fresh_id = req.body.fresh
     var alamat = req.body.alamat
-    var tanggal = moment(req.body.tanggal).format('YYYY-MM-DD')
-    var jam = moment(tanggal +' '+ req.body.jam).format('HH:mm:ss')
+    var tanggal = moment(req.body.tanggal, 'YYYY-MM-DD').locale('id').format('YYYY-MM-DD')
+    var jam = moment(tanggal +' '+ req.body.jam).format('HH:mm')
     var tema = req.body.tema
     var pengkhotbah = req.body.pengkhotbah
     var description = req.body.description
+
+    // console.log(req.body.tanggal + "= " + tanggal);
+    // console.log(req.body.jam + "= " + jam);
 
     new IbadahModel({
         fresh_id,

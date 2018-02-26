@@ -9,7 +9,7 @@ block content
         a.btn.btn-md.btn-outline-primary(href="/absensi_fresh") Tambahkan Ibadah
 
   .card
-    h5.card-header Tabel Ibadah
+    h5.card-header Tabel Jadwal Ibadah
     .card-body
       .table-responsive
         table.table.table-hover.table-bordered
@@ -23,20 +23,20 @@ block content
               th Tema Ibadah
               th Pengkhotbah
               th Action.
-        //-   tbody
-            //- - each ibadah, i in dataIbadah
-            //-   tr
-            //-     td( scope="row") #{i + 1}
-            //-     td #{ibadah.fresh.nama}
-            //-     - date = moment(ibadah.tanggal).locale('id').format('YYYY/MM/DD')
-            //-     td #{moment(ibadah.tanggal).locale('id').format('dddd, DD-MM-YYYY')}
-            //-     td #{moment(date +' '+ ibadah.jam).format('HH:mm ')}
-            //-     td #{ibadah.alamat}
-            //-     td #{ibadah.tema}
-            //-     td #{ibadah.pengkhotbah}
-            //-     td
-            //-       a.btn.btn-sm.btn-outline-success(href="/ibadah/edit/#{ibadah.id}") Ubah 
-            //-       | 
-            //-       a.btn.btn-sm.btn-outline-danger(href="/ibadah/delete/#{ibadah.id}") Hapus
+          tbody
+            - each ibadah, i in ibadahData
+              tr
+                td( scope="row") #{i + 1}
+                td #{ibadah.fresh.nama}
+                - date = moment(ibadah.tanggal).locale('id').format('YYYY/MM/DD')
+                td #{moment(ibadah.tanggal).locale('id').format('dddd, DD-MM-YYYY')}
+                td #{moment(date +' '+ ibadah.jam).format('HH:mm ')}
+                td #{ibadah.alamat}
+                td #{ibadah.tema}
+                td #{ibadah.pengkhotbah}
+                td
+                  a.btn.btn-sm.btn-outline-success(href="/absensi_fresh/#{ibadah.id}") Absensi
+                  //- | 
+                  //- a.btn.btn-sm.btn-outline-danger(href="/ibadah/delete/#{ibadah.id}") Hapus
                   
               

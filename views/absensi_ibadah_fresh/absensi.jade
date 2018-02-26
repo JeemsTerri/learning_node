@@ -1,0 +1,43 @@
+extends ../dashboard_layout
+
+block content
+  
+  .d-flex.justify-content-between.flex-wrap.flex-md-nowrap.align-items-center.pb-2.mb-3.border-bottom
+    h1.h2 Absensi Ibadah Fresh
+    .btn-toolbar.mb-2.mb-md-0
+      .btn-group.mr-2
+        a.btn.btn-md.btn-outline-primary(href="/absensi_fresh") Tambahkan Ibadah
+
+  .card
+    h5.card-header Absensi Ibadah
+    .card-body
+      //- p #{moment(moment(ibadahData.tanggal).locale('id').format('YYYY/MM/DD') + " "+ ibadahData.jam).format('dddd, DD-MM-YYYY HH:mm')}
+      p Berkas absensi ibadah fresh #{ibadahData.fresh.nama} pada hari #{moment(moment(ibadahData.tanggal).format('YYYY/MM/DD') + " "+ ibadahData.jam).locale('id').format('dddd, DD MMMM YYYY HH:mm')}
+      .table-responsive
+        table.table.table-hover.table-bordered
+          thead
+            tr
+              th No.
+              th Nama Jemaat
+              th Kehadiran
+              th Keterangan
+          tbody
+            - each jemaat, i in jemaatData.jemaats
+              tr
+                td(scope="row") #{i + 1}
+                td #{jemaat.firstname +" "+ jemaat.lastname}
+                td.text-center
+                  .custom-control.custom-radio.custom-control-inline
+                    input.custom-control-input(name="#{jemaat.id}_hadir", id="hadir[#{jemaat.id}]", type="radio")
+                    label.custom-control-label(for="hadir[#{jemaat.id}]") Hadir
+                  .custom-control.custom-radio.custom-control-inline
+                    input.custom-control-input(name="#{jemaat.id}_hadir", id="tidak_hadir[#{jemaat.id}]", type="radio")
+                    label.custom-control-label(for="tidak_hadir[#{jemaat.id}]") Tidak Hadir
+                td
+                  textarea.form-control#keterangan(name="keterangan", cols="35", rows="2")
+
+          .text-center
+        button.btn.btn-md.btn-primary(type='submit', name='submit', width="200") Simpan
+        a.btn.btn-md.btn-danger(href="/fresh", id="cancel" name='cancel', width="200") Kembali
+                    
+
