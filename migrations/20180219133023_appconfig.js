@@ -1,7 +1,7 @@
 "use strict";
 exports.up = function(knex, Promise) {
     return knex.schema.createTable('appconfig', function (t) {
-        t.string('nama_gereja').notNullable().primary()
+        t.string('nama_gereja', 200).notNullable().primary()
         t.string('alamat_gereja').notNullable()
         t.string('kota').notNullable()
         t.string('provinsi').notNullable()
